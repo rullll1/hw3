@@ -219,7 +219,7 @@ public:
     }
 
 
-    void pushBack(int n)
+    void pushBack(T n)
     {
         Node *tmp = new Node;
         tmp->data = n;
@@ -237,7 +237,7 @@ public:
         }
         m_size += 1;
     }
-    T& front() {
+    T& front() const {
         if (this->size() == 0){
             throw EmptyQueue();
         }
@@ -281,15 +281,7 @@ template<class T, typename Function>
 Queue<T> filter(Queue<T>& q, Function func){
     Queue<T> newQ;
     int size = 0;
-//    Queue<int>::Iterator i = q.begin();
-//    while (size < q.size()){
-//        if (func(*i)){
-//            newQ.pushBack(*i);
-//        }
-//        size ++;
-//        ++i;
-//    }
-    for (Queue<int>::Iterator i = q.begin(); i != q.end(); size++, ++i){
+    for (typename Queue<T>::Iterator i = q.begin(); i != q.end(); size++, ++i){
         if (func(*i)){
             newQ.pushBack(*i);
         }
@@ -301,7 +293,7 @@ Queue<T> filter(Queue<T>& q, Function func){
 template<class T, typename Function>
 void transform(Queue<T>&  q, Function func){
     int size = 0;
-    for (Queue<int>::Iterator i = q.begin(); size < q.size(); size++,++i){
+    for (typename Queue<T>::Iterator i = q.begin(); size < q.size(); size++,++i){
         func(*i);
     }
 }
