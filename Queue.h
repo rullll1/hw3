@@ -122,11 +122,6 @@ public:
 
     Queue<T>& operator=(const Queue<T>& other)
     {
-//        Queue<T> tmp(other);
-//        this->head = tmp.head;
-//        this->tail = tmp.tail;
-//        this->m_size = tmp.m_size;
-//        return *this;
         Node* oldHead = this->head;
         Node* oldTail = this->tail;
         int old_size = this->size();
@@ -163,18 +158,32 @@ public:
             }
         }
         deleteNodes(oldHead);
+//        deleteNodes(oldTail);
         return *this;
     }
 
 
+//    void deleteNodes(Node* node){
+//        if (node){
+//            deleteNodes(node->next);
+//            node->next = nullptr;
+//            delete node;
+//        }
+//
+//    }
+
     void deleteNodes(Node* node){
-        if (node){
-            deleteNodes(node->next);
-            node->next = NULL;
-            delete node;
+        while (node){
+            Node* toDelete = node;
+            node = node->next;
+            delete (toDelete);
+//            deleteNodes(node->next);
+//            node->next = nullptr;
+//            delete node;
         }
 
     }
+
     class Iterator{
     private:
         Queue<T> m_q;
