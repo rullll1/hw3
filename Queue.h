@@ -86,6 +86,9 @@ public:
     ~Queue(){
 
         deleteNodes(this->head);
+//        this->head = NULL;
+//        this->tail = NULL;
+
     }
 
     Queue(const Queue& other){
@@ -93,31 +96,73 @@ public:
         this->tail = nullptr;
         this->m_size = 0;
         for(ConstIterator i=other.begin(); i != other.end(); ++i){
-            Node *tmp = new Node;
-            tmp->data = *i;
-            tmp->next = nullptr;
+            try {
+                Node *tmp = new Node;
+                tmp->data = *i;
+                tmp->next = nullptr;
 
-            if(head == nullptr)
-            {
-                head = tmp;
-                tail = tmp;
+                if(head == nullptr)
+                {
+                    head = tmp;
+                    tail = tmp;
+                }
+                else
+                {
+                    tail->next = tmp;
+                    tail = tail->next;
+                }
+                m_size += 1;
             }
-            else
-            {
-                tail->next = tmp;
-                tail = tail->next;
+            catch (std::bad_alloc& e){
+                deleteNodes(head->next);
+                throw;
             }
-            m_size += 1;
-
         }
     }
 
     Queue<T>& operator=(const Queue<T>& other)
     {
-        Queue<T> tmp(other);
-        this->head = tmp.head;
-        this->tail = tmp.tail;
-        this->m_size = tmp.m_size;
+//        Queue<T> tmp(other);
+//        this->head = tmp.head;
+//        this->tail = tmp.tail;
+//        this->m_size = tmp.m_size;
+//        return *this;
+        Node* oldHead = this->head;
+        Node* oldTail = this->tail;
+        int old_size = this->size();
+
+
+        this->head = nullptr;
+        this->tail = nullptr;
+        this->m_size = 0;
+
+        for(ConstIterator i=other.begin(); i != other.end(); ++i){
+            try {
+                Node *tmp = new Node;
+                tmp->data = *i;
+                tmp->next = nullptr;
+
+                if(head == nullptr)
+                {
+                    head = tmp;
+                    tail = tmp;
+                }
+                else
+                {
+                    tail->next = tmp;
+                    tail = tail->next;
+                }
+                m_size += 1;
+            }
+            catch (std::bad_alloc& e){
+                deleteNodes(head->next);
+                this->m_size = old_size;
+                this->head = oldHead;
+                this->tail = oldTail;
+                throw e;
+            }
+        }
+        deleteNodes(oldHead);
         return *this;
     }
 
@@ -125,9 +170,10 @@ public:
     void deleteNodes(Node* node){
         if (node){
             deleteNodes(node->next);
+            node->next = NULL;
+            delete node;
         }
-        node = NULL;
-        delete node;
+
     }
     class Iterator{
     private:
