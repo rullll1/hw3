@@ -91,32 +91,46 @@ public:
 
     }
 
-    Queue(const Queue& other){
-        this->head = nullptr;
-        this->tail = nullptr;
-        this->m_size = 0;
-        for(ConstIterator i=other.begin(); i != other.end(); ++i){
-            try {
-                Node *tmp = new Node;
-                tmp->data = *i;
-                tmp->next = nullptr;
+//    Queue(const Queue& other){
+//        this->head = nullptr;
+//        this->tail = nullptr;
+//        this->m_size = 0;
+//        for(ConstIterator i=other.begin(); i != other.end(); ++i){
+//            try {
+//                Node *tmp = new Node;
+//                tmp->data = *i;
+//                tmp->next = nullptr;
+//
+//                if(head == nullptr)
+//                {
+//                    head = tmp;
+//                    tail = tmp;
+//                }
+//                else
+//                {
+//                    tail->next = tmp;
+//                    tail = tail->next;
+//                }
+//                m_size += 1;
+//            }
+//            catch (std::bad_alloc& e){
+//                deleteNodes(this->head);
+//                throw;
+//            }
+//        }
+//    }
 
-                if(head == nullptr)
-                {
-                    head = tmp;
-                    tail = tmp;
+    Queue(const Queue<T>& queue) : head(nullptr),tail(nullptr), m_size(0){
+        Queue<T>::ConstIterator it = queue.begin();
+        while (it != queue.end()) {
+            try {pushBack(*it);}
+            catch (std::bad_alloc&){
+                while (head){
+                    popFront();
                 }
-                else
-                {
-                    tail->next = tmp;
-                    tail = tail->next;
-                }
-                m_size += 1;
-            }
-            catch (std::bad_alloc& e){
-                deleteNodes(this->head);
                 throw;
             }
+            ++it;
         }
     }
 
@@ -158,7 +172,6 @@ public:
             }
         }
         deleteNodes(oldHead);
-//        deleteNodes(oldTail);
         return *this;
     }
 
