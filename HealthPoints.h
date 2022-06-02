@@ -14,14 +14,23 @@ public:
     HealthPoints();
     HealthPoints(const HealthPoints&) = default;
 
-
+    HealthPoints& operator=(HealthPoints const& other);
     friend HealthPoints operator+(HealthPoints const& hp1, HealthPoints const& hp2);
-//    friend HealthPoints operator+(HealthPoints const& hp1, int hp2);
-//    friend HealthPoints operator+(int hp1, HealthPoints const& hp2);
+    friend HealthPoints operator+(HealthPoints const& hp1, int hp2);
+    friend HealthPoints operator+(int hp1, HealthPoints const& hp2);
 
     HealthPoints& operator+=(HealthPoints const& hp1);
+    HealthPoints& operator+=(int hp1);
+
     friend HealthPoints operator-(HealthPoints const& hp1, HealthPoints const& hp2);
+    friend HealthPoints operator-(HealthPoints const& hp1, int hp2);
+
+
+
     HealthPoints& operator-=(HealthPoints const& hp1);
+    HealthPoints& operator-=(int hp1);
+
+
     bool friend operator==(HealthPoints const& hp1, HealthPoints const& hp2);
     bool friend operator!=(HealthPoints const& hp1, HealthPoints const& hp2);
     bool friend operator<=(HealthPoints const& hp1, HealthPoints const& hp2);

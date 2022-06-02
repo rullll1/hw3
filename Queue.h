@@ -112,6 +112,15 @@ public:
         }
     }
 
+    Queue<T>& operator=(const Queue<T>& other)
+    {
+        Queue<T> tmp(other);
+        this->head = tmp.head;
+        this->tail = tmp.tail;
+        this->m_size = tmp.m_size;
+        return *this;
+    }
+
 
     void deleteNodes(Node* node){
         if (node){
@@ -251,6 +260,9 @@ public:
         Node* newHead = this->head->next;
         delete this->head;
         this->head = newHead;
+        if (m_size == 1){
+            this->tail = nullptr;
+        }
         m_size -= 1;
     }
 
