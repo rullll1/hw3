@@ -114,7 +114,7 @@ public:
                 m_size += 1;
             }
             catch (std::bad_alloc& e){
-                deleteNodes(head->next);
+                deleteNodes(this->head);
                 throw;
             }
         }
@@ -155,7 +155,7 @@ public:
                 m_size += 1;
             }
             catch (std::bad_alloc& e){
-                deleteNodes(head->next);
+                deleteNodes(this->head);
                 this->m_size = old_size;
                 this->head = oldHead;
                 this->tail = oldTail;
