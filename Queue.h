@@ -7,62 +7,6 @@
 
 #include <iostream>
 
-//template<typename QueueType>
-//class QueueIterator {
-//public:
-//    using ValueType = typename  QueueType::ValueType;
-//    using PointerType = ValueType*;
-//    using ReferenceType = ValueType&;
-//public:
-//    QueueIterator(PointerType ptr){
-//        this->m_ptr = ptr;
-//    }
-//
-//    QueueIterator& operator++(){
-//        this->m_ptr++;
-//        return *this;
-//    }
-//    QueueIterator& operator++(int){
-//        QueueIterator iterator = *this;
-//        --(*this);
-//        return  iterator;
-//    }
-//
-//    QueueIterator& operator--(){
-//        this->m_ptr++;
-//        return *this;
-//    }
-//    QueueIterator& operator--(int){
-//        QueueIterator iterator = *this;
-//        --(*this);
-//        return  iterator;
-//    }
-//    ReferenceType operator[](int index){
-//        return *(this->m_ptr[index]);
-//    }
-//
-//    PointerType operator->(){
-//        return this->m_ptr;
-//    }
-//
-//    ReferenceType operator*(){
-//        return *m_ptr;
-//    }
-//
-//    bool operator==(const QueueIterator& other) const {
-//        return this->m_ptr == other.m_ptr;
-//    }
-//
-//    bool operator!=(const QueueIterator& other) const {
-//        return this->m_ptr != other.m_ptr;
-//    }
-//
-//
-//private:
-//    PointerType m_ptr;
-//};
-
-
 template<class T>
 class Queue
 {
@@ -190,9 +134,6 @@ public:
             Node* toDelete = node;
             node = node->next;
             delete (toDelete);
-//            deleteNodes(node->next);
-//            node->next = nullptr;
-//            delete node;
         }
 
     }
